@@ -1,0 +1,390 @@
+:root {
+    --green-dark: #14532d;
+    --green-mid: #166534;
+    --green-light: #f0fdf4;
+    --green-bright: #22c55e;
+    --white: #ffffff;
+    --text-dark: #1f2937;
+    --text-muted: #4b5563;
+    --bg-light: #f9fafb;
+    --accent-blue: #0284c7;
+    --accent-blue-light: #e0f2fe;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--text-dark);
+    line-height: 1.6;
+    background-color: var(--white);
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+/* NAVBAR */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
+.navbar .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--green-dark);
+}
+
+.navbar .menu {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+}
+
+.navbar .menu a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.navbar .menu a:hover {
+    color: var(--green-mid);
+}
+
+/* HERO SECTION */
+header {
+    background-color: var(--green-light);
+    border-bottom: 2px solid #eafaf1;
+}
+
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    padding-bottom: 60px;
+}
+
+.hero-texto {
+    flex: 1;
+}
+
+.hero-texto .badge {
+    background-color: var(--green-mid);
+    color: var(--white);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+.hero-texto h1 {
+    font-size: 2.8rem;
+    color: var(--green-dark);
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+
+.hero-texto p {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    margin-bottom: 25px;
+}
+
+.hero-texto ul {
+    list-style: none;
+    margin-bottom: 30px;
+}
+
+.hero-texto ul li {
+    margin-bottom: 10px;
+    font-size: 1.05rem;
+}
+
+.hero-card {
+    background-color: var(--white);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    text-align: center;
+    border-top: 5px solid var(--green-bright);
+    min-width: 250px;
+}
+
+.hero-card h3 {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+.hero-card .fecha {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--green-dark);
+    margin-bottom: 10px;
+}
+
+/* SECTIONS COMMON */
+.section-title {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.section-title h2 {
+    font-size: 2rem;
+    color: var(--green-dark);
+    margin-bottom: 10px;
+}
+
+.section-title p {
+    color: var(--text-muted);
+}
+
+/* BUTTONS */
+.btn {
+    display: inline-block;
+    background-color: var(--green-mid);
+    color: var(--white);
+    padding: 12px 30px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: var(--green-dark);
+}
+
+/* CARDS (CURSO) */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.card {
+    background: var(--bg-light);
+    padding: 30px;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+}
+
+.card h3 {
+    color: var(--green-dark);
+    margin-bottom: 15px;
+}
+
+/* TIMELINE (HORARIO) */
+.timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 700px;
+    margin: 0 auto 40px auto;
+}
+
+.timeline .item {
+    padding: 20px;
+    background-color: var(--bg-light);
+    border-left: 4px solid var(--green-mid);
+    border-radius: 0 8px 8px 0;
+}
+
+.time-tags {
+    margin-bottom: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.tag-morning, .tag-afternoon {
+    font-size: 0.85rem;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.tag-morning {
+    background-color: #e2e8f0;
+    color: #334155;
+}
+
+.tag-afternoon {
+    background-color: var(--accent-blue-light);
+    color: var(--accent-blue);
+}
+
+.timeline .item strong {
+    font-size: 1.15rem;
+    color: var(--green-dark);
+    display: block;
+    margin-bottom: 5px;
+}
+
+.info-box {
+    background-color: var(--green-light);
+    border: 1px dashed var(--green-mid);
+    padding: 30px;
+    border-radius: 8px;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.info-box h3 {
+    color: var(--green-dark);
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.grid-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+    list-style-position: inside;
+}
+
+/* TABLES (CATEGORIAS) */
+.table-box {
+    overflow-x: auto;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    border-radius: 8px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    background: var(--white);
+}
+
+th {
+    background-color: var(--green-mid);
+    color: var(--white);
+    padding: 15px;
+    font-weight: 600;
+}
+
+td {
+    padding: 15px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+tr:hover td {
+    background-color: #fcfdfd;
+}
+
+.tag-agotado {
+    background-color: #fef2f2;
+    color: #dc2626;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+/* PRICE GRID */
+.price-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.price-card {
+    background: var(--white);
+    border: 1px solid #e5e7eb;
+    padding: 30px;
+    border-radius: 8px;
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+.price-card.featured {
+    border: 2px solid var(--green-mid);
+    background-color: var(--green-light);
+    transform: scale(1.03);
+}
+
+.price-card h3 {
+    margin-bottom: 15px;
+    color: var(--text-dark);
+}
+
+.price-card .price {
+    font-size: 3rem;
+    font-weight: bold;
+    color: var(--green-dark);
+    margin-bottom: 15px;
+}
+
+/* FAQ */
+.faq-box {
+    max-width: 700px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.faq-item {
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 15px;
+}
+
+.faq-item h4 {
+    color: var(--green-dark);
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+}
+
+/* CONTACT */
+.contact {
+    background-color: var(--bg-light);
+    border-top: 1px solid #e5e7eb;
+}
+
+.contact-info {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin-top: 25px;
+}
+
+/* FOOTER */
+footer {
+    background-color: var(--green-dark);
+    color: var(--white);
+    text-align: center;
+    padding: 30px 20px;
+    font-size: 0.9rem;
+}
+
+footer p {
+    margin-bottom: 5px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .hero {
+        flex-direction: column;
+        text-align: center;
+    }
+    .hero-texto h1 {
+        font-size: 2rem;
+    }
+    .price-card.featured {
+        transform: none;
+    }
+}
