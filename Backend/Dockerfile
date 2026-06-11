@@ -5,13 +5,13 @@ FROM python:3.10-slim
 WORKDIR /app
 
 # 3. Copiamos los requerimientos desde la carpeta Backend hacia el contenedor
-COPY Backend/requirements.txt .
+COPY requirements.txt .
 
 # 4. Instalamos las dependencias dentro del contenedor sin guardar caché (para ahorrar espacio)
 RUN pip install --no-cache-dir -r requirements.txt
 
 # 5. Copiamos TODO el contenido de tu carpeta Backend local dentro del contenedor
-COPY Backend/ .
+COPY . .
 
 # 6. Le avisamos al contenedor que el tráfico entrará por el puerto 8080 (el estándar de Cloud Run)
 EXPOSE 8080
