@@ -3,7 +3,7 @@ name: Despliegue Continuo Backend
 on:
   push:
     branches:
-      - main  # <-- Coloca aquí el nombre de tu rama principal (main o master)
+      - master
 
 jobs:
   deploy:
