@@ -23,8 +23,11 @@ jobs:
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          application_name: 'api-futbol-el-nino-moi' # <-- El nombre de tu aplicación en AWS
-          environment_name: 'DespliegueContinuo-env' # <-- El nombre del entorno que sale en tu captura de AWS
+          
+          # ¡Ojo! Cambia estos dos valores por los reales de tu captura de AWS:
+          application_name: 'DespliegueContinuo_Modelado' 
+          environment_name: 'DespliegueContinuoModelado-env' 
+          
           version_label: ${{ github.sha }}
-          region: us-east-1 # <-- Asegúrate de que coincida con tu región de AWS (Norte de Virginia)
+          region: us-east-1
           deployment_package: deploy.zip
