@@ -1,5 +1,5 @@
 // CONFIGURACIÓN: URL del Backend (provisional)
-const API_URL = "http://127.0.0.1:8000";
+const API_URL = "http://desplieguecontinuomodelado-env.eba-fihm92pm.us-east-1.elasticbeanstalk.com/docs";
 
 document.addEventListener("DOMContentLoaded", () => {
     cargarCuposTabla();
