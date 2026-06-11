@@ -1,0 +1,30 @@
+name: Despliegue Continuo Backend
+
+on:
+  push:
+    branches:
+      - main  # <-- Coloca aquí el nombre de tu rama principal (main o master)
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar código del repositorio
+        uses: actions/checkout@v3
+
+      - name: Generar ZIP del Backend
+        run: |
+          cd Backend
+          zip -r ../deploy.zip ./*
+          cd ..
+
+      - name: Enviar y Desplegar en AWS Elastic Beanstalk
+        uses: einaregilsson/beanstalk-deploy@v21
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application_name: 'api-futbol-el-nino-moi' # <-- El nombre de tu aplicación en AWS
+          environment_name: 'DespliegueContinuo-env' # <-- El nombre del entorno que sale en tu captura de AWS
+          version_label: ${{ github.sha }}
+          region: us-east-1 # <-- Asegúrate de que coincida con tu región de AWS (Norte de Virginia)
+          deployment_package: deploy.zip
