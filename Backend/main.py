@@ -9,10 +9,17 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Configuración de CORS para permitir peticiones desde tu Frontend local o la nube
+# REEMPLAZA ESTA URL por la de tu Frontend ya desplegado en la nube
+FRONTEND_URL_PROD = "https://modelado-ci-cd-817979807762.europe-west1.run.app"
+
+# Configuración de CORS optimizada para Local y Producción
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        FRONTEND_URL_PROD,          # Tu frontend en la nube
+        "http://localhost:5173",    # Entorno local estándar (Vite/Vue)
+        "http://localhost:4200",    # Entorno local estándar (Angular)
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"]
@@ -26,7 +33,7 @@ class Inscripcion(BaseModel):
     telefono: str
     meses_seleccionados: List[str]
 
-# Base de datos simulada en memoria (Llaves corregidas para emparejar con el Frontend)
+# Base de datos simulada en memoria
 base_cupos = [
     {"mes": "Febrero", "c6_8": 0, "c9_11": 2, "c12_14": 6},
     {"mes": "Marzo", "c6_8": 30, "c9_11": 30, "c12_14": 30},
@@ -38,7 +45,6 @@ lista_inscritos = []
 
 @app.get("/")
 def inicio():
-    # Corregido: Llaves simples para evitar errores de sintaxis en Python
     return {"status": "online", "mensaje": "Servidor de El Niño Moi corriendo con control numérico de cupos."}
 
 @app.get("/api/cupos")
@@ -77,14 +83,12 @@ def registrar_inscripcion(datos: Inscripcion):
                 mes_encontrado = True
                 cupos_actuales = item.get(categoria)
 
-                # Si por algún motivo la llave no existe en el diccionario
                 if cupos_actuales is None:
                     raise HTTPException(
                         status_code=500,
                         detail=f"Error interno: La categoría '{categoria}' no se encuentra configurada en el servidor."
                     )
 
-                # Si el mes no tiene espacio para esa edad
                 if cupos_actuales <= 0:
                     raise HTTPException(
                         status_code=400,
@@ -99,7 +103,7 @@ def registrar_inscripcion(datos: Inscripcion):
     for mes_cliente in datos.meses_seleccionados:
         for item in base_cupos:
             if item["mes"].lower() == mes_cliente.lower():
-                item[categoria] -= 1  # Resta el cupo de forma controlada en caliente
+                item[categoria] -= 1  # Resta el cupo en memoria
                 break
 
     # 5. LÓGICA FINANCIERA: Cálculo de costos y descuentos escalonados
@@ -118,8 +122,8 @@ def registrar_inscripcion(datos: Inscripcion):
     descuento_calculado = subtotal * (porcentaje_descuento / 100)
     total_a_pagar = subtotal - descuento_calculado
 
-    # 6. Almacenamiento del registro de auditoría interna
-    nueva_inscripcion = datos.dict()
+    # 6. Almacenamiento del registro de auditoría interna (.model_dump() reemplaza a .dict())
+    nueva_inscripcion = datos.model_dump()
     nueva_inscripcion["categoria_asignada"] = categoria
     nueva_inscripcion["financiero"] = {
         "subtotal": subtotal,
