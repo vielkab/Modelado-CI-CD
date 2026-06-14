@@ -22,23 +22,20 @@ El repositorio se organiza de la siguiente manera para mantener un desarrollo li
 │
 └── README.md                # Documentación técnica del proyecto
 
-## 🛠️ Arquitectura del Sistema
-
+Arquitectura del Sistema
 El proyecto está estructurado bajo una arquitectura de software limpia y desacoplada:
-* **Backend:** Construido con **FastAPI** (Python), encargado de centralizar las reglas de negocio, validar los rangos de edad, controlar los cupos en memoria y procesar los descuentos de forma segura.
-* **Frontend:** Una interfaz nativa, ligera y responsiva (**HTML5, CSS3, JavaScript Modular**) que consume la API en caliente y actualiza el inventario visual de cupos en tiempo real sin recargar la página.
 
----
+Backend: Construido con FastAPI (Python), encargado de centralizar las reglas de negocio, validar los rangos de edad, controlar los cupos en memoria y procesar los descuentos de forma segura.
 
-## 🚀 Instrucciones de Ejecución (Entorno Local)
+Frontend: Una interfaz nativa, ligera y responsiva (HTML5, CSS3, JavaScript Modular) que consume la API en caliente y actualiza el inventario visual de cupos en tiempo real sin recargar la página.
 
+🚀 Instrucciones de Ejecución (Entorno Local)
 Sigue estos pasos para poner a correr el ecosistema completo en tu máquina:
 
-### 1. Inicializar el Backend (API)
-
+1. Inicializar el Backend (API)
 Asegúrate de tener Python instalado. Abre una terminal en la ruta del backend y ejecuta los siguientes comandos:
 
-```bash
+Bash
 # 1. Navegar a la carpeta del servidor (si estás en la raíz)
 cd Backend
 
@@ -46,26 +43,44 @@ cd Backend
 pip install fastapi uvicorn pydantic
 
 # 3. Inicializar el servidor con recarga automática en caliente
-python -m uvicorn main:app --reload
+py -m uvicorn main:app --reload
+🔌 Explicación Teórica de los Métodos HTTP Utilizados
+Para que el equipo y el docente comprendan cómo fluye la información en este proyecto, es fundamental dominar los métodos del protocolo HTTP que permiten conectar nuestro Frontend con el Backend:
 
-## 🔌 Explicación Teórica de los Métodos HTTP Utilizados
+1. El Método GET (Consultar Información)
+¿Qué es en el mundo real?: Es el equivalente a ir a una cartelera de anuncios a leer la información. Consumes los datos, los miras, pero no alteras nada de lo que está escrito ahí.
 
-Para que el equipo y el docente comprendan cómo fluye la información en este proyecto, es fundamental dominar los dos métodos del protocolo HTTP que permiten conectar nuestro Frontend con el Backend:
+¿Cómo se aplica en nuestro proyecto?: Lo usamos para solicitar y traer el estado actual de los cupos generales desde el servidor hacia la tabla informativa. Adicionalmente, se emplea un GET específico mediante la cédula para consultar y extraer la ficha detallada de un alumno inscrito con sus respectivos desgloses financieros.
 
-### 1. El Método GET (Consultar Información)
-* **¿Qué es en el mundo real?:** Es el equivalente a ir a una cartelera de anuncios a leer la información. Consumes los datos, los miras, pero no alteras nada de lo que está escrito ahí.
-* **¿Cómo se aplica en nuestro proyecto?:** Lo usamos exclusivamente para **solicitar y traer** el estado actual de los cupos desde el servidor. Cuando un usuario entra a la página web, el sistema ejecuta un "GET" hacia la ruta del servidor de forma invisible. El servidor responde enviando la lista de los meses con sus respectivos cupos disponibles, y nuestra interfaz toma esos números y los dibuja en la tabla. 
-* **Regla clave:** Este método es totalmente seguro y pasivo; no importa cuántas veces se consulte, los cupos no van a cambiar ni a disminuir solo por mirar la tabla.
+Regla clave: Este método es totalmente seguro y pasivo; no importa cuántas veces se consulte, los datos no van a cambiar ni a disminuir solo por mirar.
 
-### 2. El Método POST (Enviar y Procesar Acciones)
-* **¿Qué es en el mundo real?:** Es el equivalente a llenar un formulario de matrícula en papel y entregarlo en la ventanilla de recepción. Estás enviando información nueva y específica que la institución debe procesar, validar y registrar, provocando un cambio real en sus carpetas internas.
-* **¿Cómo se aplica en nuestro proyecto?:** Lo usamos en el momento exacto en que el representante hace clic en el botón "Inscribir". En ese instante, el Frontend empaqueta todos los datos escritos (el nombre del niño, su edad, el teléfono y los meses que seleccionó) y los envía hacia el Backend mediante un "POST". 
-* **Regla clave:** A diferencia del GET, este método **sí altera el estado del servidor**. Cuando el Backend recibe este "POST", activa las reglas de negocio en la memoria: calcula si la edad corresponde a la categoría correcta, aplica los descuentos financieros por cantidad de meses y, si todo está en orden, **resta un cupo** en el inventario del servidor.
+2. El Método POST (Enviar y Procesar Acciones)
+¿Qué es en el mundo real?: Es el equivalente a llenar un formulario de matrícula en papel y entregarlo en la ventanilla de recepción. Estás enviando información nueva que la institución debe procesar, validar y registrar.
 
-### 🔄 El Flujo de Cooperación entre Ambos Métodos
+¿Cómo se aplica en nuestro proyecto?: Lo usamos en el momento exacto en que el representante hace clic en el botón "Proceder con la Pre-Inscripción". El Frontend empaqueta todos los datos del formulario y los envía al Backend para validar la edad, aplicar descuentos y restar un cupo en la memoria del servidor.
 
-Lo más interesante del proyecto es cómo estos dos métodos trabajan en equipo de forma consecutiva durante una inscripción exitosa:
+Regla clave: A diferencia del GET, este método sí altera el estado del servidor al crear un nuevo registro.
 
-1. **Lectura Inicial (GET):** El usuario entra a la web, el sistema hace un GET y muestra cuántos cupos quedan.
-2. **Procesamiento (POST):** El usuario envía el formulario, se dispara un POST, el servidor procesa los datos y descuenta el cupo internamente.
-3. **Actualización Reactiva (GET de nuevo):** En cuanto el Frontend recibe la confirmación de que el POST fue exitoso, el código de JavaScript vuelve a ordenar inmediatamente un método GET en segundo plano. Esto hace que la tabla se vuelva a leer y se actualice con los nuevos cupos reducidos frente a los ojos del usuario al instante, logrando una experiencia fluida sin necesidad de reiniciar o refrescar manualmente toda la página web.
+3. El Método PUT (Actualización Completa)
+¿Qué es en el mundo real?: Es como reemplazar una carpeta de matrícula vieja por una completamente nueva que tiene todos los campos corregidos de golpe.
+
+¿Cómo se aplica en nuestro proyecto?: Se ejecuta mediante la opción "Actualizar Ficha Completa", donde se sobrescriben todos los campos modificables del alumno registrado (como el nombre del representante, el nombre del niño y el teléfono) bajo su misma cédula.
+
+4. El Método PATCH (Actualización Parcial)
+¿Qué es en el mundo real?: Es el equivalente a usar corrector líquido sobre un único renglón específico de la ficha (como el número de teléfono) sin alterar el resto del documento original.
+
+¿Cómo se aplica en nuestro proyecto?: Lo mapeamos en la función "Cambiar Teléfono". Permite modificar únicamente este dato de contacto de manera ligera y directa en el servidor sin necesidad de reenviar toda la información del alumno.
+
+5. El Método DELETE (Eliminación de Recursos)
+¿Qué es en el mundo real?: Es retirar la ficha de inscripción del archivador para dar de baja al alumno del curso vacacional.
+
+¿Cómo se aplica en nuestro proyecto?: Se activa con la acción "Dar de Baja Alumno". Al enviar la cédula, el Backend borra al estudiante de la lista de inscritos y ejecuta la lógica inversa de negocio: devuelve y suma (+1) el cupo liberado en la tabla de los meses correspondientes.
+
+🔄 El Flujo de Cooperación entre Métodos
+Lo más interesante del proyecto es cómo estos métodos trabajan en equipo de forma consecutiva para lograr una experiencia reactiva:
+
+Lectura Inicial (GET): El usuario entra a la web, el sistema lee los cupos y los dibuja en la tabla.
+
+Procesamiento (POST/PUT/PATCH/DELETE): El usuario realiza una acción en la gestión de alumnos, el Frontend se comunica con el Backend, y este procesa los cambios alterando los datos en caliente.
+
+Actualización Reactiva (GET de nuevo): En cuanto el Frontend recibe la confirmación exitosa (Status 200 OK) de cualquier operación de escritura, el código de JavaScript vuelve a ordenar inmediatamente un método GET en segundo plano. Esto hace que la tabla se vuelva a leer y se actualice frente a los ojos del usuario al instante, sin necesidad de refrescar manualmente toda la página web.

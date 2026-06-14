@@ -19,11 +19,11 @@
         </nav>
         <div class="hero container">
             <div class="hero-texto">
-                <span class="badge">Curso Vacacional 2026-</span>
+                <span class="badge">Curso Vacacional 2026</span>
                 <h1>Aprende, juega y diviértete con nosotros</h1>
                 <p>
                     Un curso diseñado para niños y jóvenes que desean mejorar
-                    su técnica, make nuevos amigos y disfrutar del futbol.
+                    su técnica, hacer nuevos amigos y disfrutar del fútbol.
                 </p>
                 <ul>
                     <li><strong>Edades:</strong> de 6 a 14 años</li>
@@ -52,7 +52,7 @@
             <div class="cards">
                 <div class="card">
                     <h3>Técnica</h3>
-                    <p>Pases como pirlo, visión de juego como xavi, control de balón como ronaldinho, regates como messi y definición como cr7 siuuu.</p>
+                    <p>Pases como Pirlo, visión de juego como Xavi, control de balón como Ronaldinho, regates como Messi y definición como CR7 SIUUU.</p>
                 </div>
                 <div class="card">
                     <h3>Trabajo en Equipo</h3>
@@ -130,7 +130,7 @@
             </div>
         </section>
 
-<section id="categorias" class="container">
+        <section id="categorias" class="container">
             <div class="section-title">
                 <h2>Meses y Disponibilidad</h2>
                 <p>El vacacional se divide en 4 módulos mensuales independientes. ¡Inscribe a tu hijo en los meses que prefieras!</p>
@@ -215,6 +215,11 @@
                     </div>
                     
                     <div>
+                        <label style="display:block; margin-bottom:5px;"><strong>Cédula del Niño (Identificador Único):</strong></label>
+                        <input type="text" id="txt-cedula" required placeholder="Ej: 131XXXXXX8" pattern="[0-9]{10}" title="La cédula debe contener exactamente 10 dígitos numéricos." style="width:100%; padding:10px; border-radius:5px; border:1px solid #ccc;">
+                    </div>
+                    
+                    <div>
                         <label style="display:block; margin-bottom:5px;"><strong>Nombre del Niño:</strong></label>
                         <input type="text" id="txt-nino" required style="width:100%; padding:10px; border-radius:5px; border:1px solid #ccc;">
                     </div>
@@ -244,6 +249,16 @@
                 </form>
 
                 <hr style="margin: 40px 0; border: 0; border-top: 1px solid #eee;">
+                
+                <div class="acciones-crud-test" >
+                    <h3>Gestión de Alumnos </h3>
+                    <div class= "botones" >
+                        <button onclick="ejecutarModificarFichaCompleta()" >Actualizar Ficha Completa </button>
+                        <button onclick="ejecutarModificarTelefono()" >Cambiar Teléfono </button>
+                        <button onclick="ejecutarEliminarInscripcion()" >Dar de Baja Alumno </button>
+                        <button onclick="ejecutarBuscarInscrito()" >Consultar Ficha de Alumno</button>
+                    </div>
+                </div>
 
                 <div class="contact-info" style="text-align: center;">
                     <p><strong>Correo de Soporte:</strong> Soportaalcliente@gmail.com</p>

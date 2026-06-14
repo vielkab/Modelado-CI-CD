@@ -388,3 +388,44 @@ footer p {
         transform: none;
     }
 }
+
+/* Contenedor principal de la sección CRUD */
+.acciones-crud-test {
+    text-align: center; 
+    margin-bottom: 30px;
+}
+
+/* El espacio aquí es la clave: busca el contenedor de botones DENTRO de la sección */
+.acciones-crud-test .botones {
+    display: flex; 
+    gap: 10px; 
+    justify-content: center; 
+    flex-wrap: wrap; 
+    margin-top: 10px;
+}
+
+/* Estilo general para todos los botones del CRUD */
+.acciones-crud-test .botones button {
+    padding: 10px 15px; 
+    border-radius: 5px; 
+    border: none; 
+    background-color: #3498db; /* Azul estándar del proyecto */
+    color: white; 
+    cursor: pointer; 
+    font-weight: bold;
+    transition: background-color 0.2s ease; /* Para que el cambio de color sea suave */
+}
+
+/* Efecto hover (cuando pasas el mouse por encima) */
+.acciones-crud-test .botones button:hover {
+    background-color: #2980b9; /* Un azul un poco más oscuro */
+}
+
+/* Estilo específico para el botón de consultar (para que resalte en verde o azul oscuro si prefieres) */
+.acciones-crud-test .botones button[onclick="ejecutarBuscarInscrito()"] {
+    background-color: #2ecc71; /* Verde esmeralda para diferenciar la consulta */
+}
+
+.acciones-crud-test .botones button[onclick="ejecutarBuscarInscrito()"]:hover {
+    background-color: #27ae60;
+}
