@@ -2,5 +2,5 @@
 Thumbs.db
 desktop.ini
 *.log
-.env
-.env.*
+config.bat
+node_modules
